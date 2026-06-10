@@ -1,0 +1,434 @@
+/* 
+  ⚠️ NOTE: For better performance, consider moving Google Fonts
+  to your layout.tsx using next/font instead of @import.
+  But this works fine for now.
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-ivory: #FAF7F2;
+  --color-blush: #F2E8E4;
+  --color-warm-white: #FFFDF9;
+  --color-espresso: #1C0F0A;
+  --color-taupe: #7A6248;
+  --color-dusty-rose: #C4846A;
+  --color-gold: #B8924E;
+  --color-soft-blush: #DFC4B0;
+  --color-sand: #C9A882;
+  --color-mocha: #1A0F0A;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  background-color: var(--color-ivory);
+  color: var(--color-espresso);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =====================
+   Custom Scrollbar
+===================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-soft-blush);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sand);
+}
+
+/* =====================
+   Typography Utilities
+===================== */
+.font-display {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.font-heading {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+}
+
+.font-body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+}
+
+/* Renamed to avoid conflict with Tailwind's tracking-widest */
+.tracking-extra-wide {
+  letter-spacing: 0.3em;
+}
+
+/* =====================
+   Custom Selection Color
+===================== */
+::selection {
+  background-color: var(--color-soft-blush);
+  color: var(--color-espresso);
+}
+
+/* =====================
+   Nav Link Underline
+===================== */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-espresso);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* =====================
+   Button Styles
+===================== */
+.btn-primary {
+  @apply px-8 py-3 border border-gold text-gold font-jost text-xs tracking-extra-wide uppercase transition-all duration-300;
+}
+
+.btn-primary:hover {
+  @apply bg-gold text-ivory;
+}
+
+.btn-secondary {
+  @apply font-jost text-sm tracking-wide text-taupe relative;
+}
+
+/* Fixed: plain CSS instead of broken @apply transform */
+.btn-secondary::after {
+  content: '→';
+  margin-left: 0.5rem;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.btn-secondary:hover::after {
+  transform: translateX(4px);
+}
+
+/* =====================
+   Product Card Image Swap
+===================== */
+.product-image-wrapper {
+  @apply relative overflow-hidden;
+}
+
+.product-image-wrapper img {
+  @apply transition-opacity duration-500;
+}
+
+.product-image-wrapper .secondary-image {
+  @apply absolute inset-0 opacity-0;
+}
+
+.product-image-wrapper:hover .primary-image {
+  @apply opacity-0;
+}
+
+.product-image-wrapper:hover .secondary-image {
+  @apply opacity-100;
+}
+
+/* =====================
+   Marquee Animation
+===================== */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* =====================
+   Toast Notification
+===================== */
+.toast {
+  @apply fixed bottom-6 left-6 bg-warm-white border border-soft-blush px-6 py-4 rounded-sm shadow-lg z-50;
+  animation: slideInUp 0.3s ease-out forwards;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================
+   Loading Skeleton
+===================== */
+.skeleton {
+  @apply bg-gradient-to-r from-ivory via-blush to-ivory bg-[length:200%_100%] animate-pulse;
+}
+
+/* =====================
+   Scroll Reveal
+===================== */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+.stagger-6 { transition-delay: 0.6s; }
+
+/* =====================
+   Modal & Drawer
+===================== */
+.modal-overlay {
+  @apply fixed inset-0 bg-espresso/30 backdrop-blur-sm z-40;
+}
+
+.drawer-enter {
+  transform: translateX(100%);
+}
+
+.drawer-enter-active {
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}
+
+/* =====================
+   Image Zoom
+   Scoped — does NOT affect all images globally
+===================== */
+.image-zoom {
+  transition: transform 0.6s ease-out;
+}
+
+.image-zoom:hover {
+  transform: scale(1.03);
+}
+
+/* =====================
+   Input Styles
+===================== */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  @apply bg-transparent border-b border-soft-blush py-3 px-0 font-jost text-sm text-espresso outline-none transition-colors;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  @apply border-gold;
+}
+
+input::placeholder {
+  @apply text-taupe/60;
+}
+
+/* Remove number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* =====================
+   Filter Pills
+===================== */
+.filter-pill {
+  @apply px-4 py-2 border border-soft-blush text-taupe font-jost text-xs tracking-wide transition-all duration-300 cursor-pointer;
+}
+
+.filter-pill:hover,
+.filter-pill.active {
+  @apply bg-dusty-rose border-dusty-rose text-ivory;
+}
+
+/* =====================
+   Accordion
+===================== */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+}
+
+.accordion-content.open {
+  max-height: 500px;
+}
+
+/* =====================
+   Size Selector
+===================== */
+.size-pill {
+  @apply w-10 h-10 border border-soft-blush font-jost text-xs flex items-center justify-center cursor-pointer transition-all duration-300;
+}
+
+.size-pill:hover,
+.size-pill.active {
+  @apply bg-espresso border-espresso text-ivory;
+}
+
+.size-pill.sold-out {
+  @apply opacity-40 line-through cursor-not-allowed;
+}
+
+/* =====================
+   Color Swatch
+===================== */
+.color-swatch {
+  @apply w-5 h-5 rounded-full cursor-pointer border-2 border-transparent transition-all duration-300;
+}
+
+.color-swatch:hover,
+.color-swatch.active {
+  @apply border-gold;
+}
+
+/* =====================
+   Progress Bar
+===================== */
+.progress-bar {
+  @apply h-px bg-soft-blush overflow-hidden;
+}
+
+.progress-bar-fill {
+  @apply h-full bg-dusty-rose transition-all duration-500;
+}
+
+/* =====================
+   Wishlist Heart
+===================== */
+.wishlist-heart {
+  @apply transition-transform duration-300;
+}
+
+.wishlist-heart:hover {
+  @apply scale-110;
+}
+
+.wishlist-heart.active {
+  @apply text-dusty-rose;
+}
+
+/* =====================
+   Accessibility
+===================== */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-dusty-rose;
+}
+
+/* =====================
+   Scrollbar Hide
+===================== */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* =====================
+   Horizontal Scroll
+===================== */
+.horizontal-scroll {
+  @apply overflow-x-auto scrollbar-hide snap-x snap-mandatory;
+}
+
+.horizontal-scroll > * {
+  @apply snap-start;
+}
+
+/* =====================
+   Container Utilities
+===================== */
+.container-narrow {
+  @apply max-w-7xl mx-auto px-6 md:px-12;
+}
+
+.container-wide {
+  @apply max-w-[1600px] mx-auto px-6 md:px-12;
+}
+
+/* =====================
+   Section Spacing
+===================== */
+.section-spacing {
+  @apply py-16 md:py-24 lg:py-32;
+}
+
+/* =====================
+   Card Lift
+===================== */
+.card-lift {
+  @apply transition-transform duration-300;
+}
+
+.card-lift:hover {
+  @apply -translate-y-1;
+}
+
+/* =====================
+   Aspect Ratios
+===================== */
+.aspect-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+.aspect-wide {
+  aspect-ratio: 16 / 9;
+}
