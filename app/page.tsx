@@ -52,30 +52,35 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="min-h-screen flex">
         {/* Left - Editorial Image - Desktop Only */}
-        <div className="hidden md:block w-[55%] relative overflow-hidden">
-          <motion.img
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
-            src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=1200&q=80"
-            alt="Model in elegant linen dress"
-            loading="eager"
-            className="w-full h-full object-cover"
-          />
-        </div>
+<div className="hidden md:block w-[55%] relative overflow-hidden">
+  <motion.img
+    initial={{ scale: 1.1, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    transition={{ duration: 1.2, ease: 'easeOut' }}
+    src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=1200&q=80"
+    alt="Model in elegant linen dress"
+    loading="eager"
+    className="w-full h-full object-cover"
+  />
+</div>
 
         {/* Right - Content */}
-        <div
-          className="w-full md:w-[45%] flex items-center px-8 md:px-16 lg:px-20 pt-20 relative"
-          style={{
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=80)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          {/* Overlay - shows on mobile, hidden on desktop */}
-          <div className="absolute inset-0 bg-ivory/85 md:bg-ivory" />
+<div
+  className="w-full md:w-[45%] flex items-center px-8 md:px-16 lg:px-20 pt-20 relative"
+>
+  {/* Mobile background image */}
+  <div className="absolute inset-0 md:hidden">
+    <img
+      src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=800&q=80"
+      alt=""
+      className="w-full h-full object-cover"
+      loading="eager"
+    />
+    <div className="absolute inset-0 bg-ivory/80" />
+  </div>
+
+  {/* Desktop white background */}
+  <div className="absolute inset-0 hidden md:block bg-ivory" />
 
           <div className="max-w-lg py-20 relative z-10">
             <motion.p
